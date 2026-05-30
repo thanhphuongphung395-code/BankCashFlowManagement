@@ -1,0 +1,26 @@
+﻿@model BankCashFlowManagement.ViewModels.DepositViewModel
+
+<h2>Nạp tiền</h2>
+
+<form asp-action="Deposit" method="post">
+
+    <div class="mb-3">
+        <label>Mã tài khoản</label>
+        <input asp-for="AccountId" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Số tiền</label>
+        <input asp-for="Amount" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ghi chú</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Nạp tiền
+    </button>
+
+</form>

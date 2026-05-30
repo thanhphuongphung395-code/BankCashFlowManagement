@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BankCashFlowManagement.Models.Transaction>
+
+<h2>Lịch sử giao dịch</h2>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tài khoản</th>
+            <th>Loại GD</th>
+            <th>Số tiền</th>
+            <th>Ngày GD</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TransactionId</td>
+                <td>@item.AccountId</td>
+                <td>@item.TransactionType</td>
+                <td>@item.Amount</td>
+                <td>@item.TransactionDate</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
