@@ -22,7 +22,7 @@ namespace BankCashFlowManagement.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BankCashFlowManagement.Models.Account", b =>
+            modelBuilder.Entity("Account", b =>
                 {
                     b.Property<int>("AccountId")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,35 @@ namespace BankCashFlowManagement.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("BankCashFlowManagement.Models.Transaction", b =>
+            modelBuilder.Entity("Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Transaction", b =>
                 {
                     b.Property<int>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -83,34 +111,6 @@ namespace BankCashFlowManagement.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("Transactions");
-                });
-
-            modelBuilder.Entity("Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustomerId");
-
-                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Transfer", b =>
@@ -166,7 +166,7 @@ namespace BankCashFlowManagement.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BankCashFlowManagement.Models.Account", b =>
+            modelBuilder.Entity("Account", b =>
                 {
                     b.HasOne("Customer", "Customer")
                         .WithMany("Accounts")
@@ -177,9 +177,9 @@ namespace BankCashFlowManagement.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("BankCashFlowManagement.Models.Transaction", b =>
+            modelBuilder.Entity("Transaction", b =>
                 {
-                    b.HasOne("BankCashFlowManagement.Models.Account", "Account")
+                    b.HasOne("Account", "Account")
                         .WithMany("Transactions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -188,7 +188,7 @@ namespace BankCashFlowManagement.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("BankCashFlowManagement.Models.Account", b =>
+            modelBuilder.Entity("Account", b =>
                 {
                     b.Navigation("Transactions");
                 });
